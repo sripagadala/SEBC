@@ -63,9 +63,7 @@
 
  
 4. Disable transparent hugepage support 
-			  if test -f /sys/kernel/mm/transparent_hugepage/enabled; then
-			   echo never > /sys/kernel/mm/transparent_hugepage/enabled
-			 fi
+			  if test -f /sys/kernel/mm/transparent_hugepage/enabled; then  echo never > /sys/kernel/mm/transparent_hugepage/enabled fi
 
  
 5. List your network interface configuration 
@@ -140,6 +138,25 @@ For DNS, use nslookup
 					Redirecting to /bin/systemctl start  ntpd.service
 					[root@ip-172-31-6-38 init.d]# sudo chkconfig ntpd on
 					Note: Forwarding request to 'systemctl enable ntpd.service'.
+
+					[root@ip-172-31-8-78 .ssh]# sudo service ntpd start
+					Redirecting to /bin/systemctl start  ntpd.service
+					[root@ip-172-31-8-78 .ssh]# sudo chkconfig ntpd on
+					Note: Forwarding request to 'systemctl enable ntpd.service'.
+					Created symlink from /etc/systemd/system/multi-user.target.wants/ntpd.service to /usr/lib/systemd/system/ntpd.service.
+					[root@ip-172-31-8-78 .ssh]# ntpstat
+					synchronised to NTP server (129.250.35.251) at stratum 3
+					   time correct to within 1068 ms
+					   polling server every 64 s
+					[root@ip-172-31-8-78 .ssh]# ntpq -p
+						 remote           refid      st t when poll reach   delay   offset  jitter
+					==============================================================================
+					*y.ns.gin.ntt.ne 249.224.99.213   2 u   28   64    3    1.463    1.628   1.749
+					 0.time.itoc.com 202.21.137.10    2 u   25   64    3    0.503    1.208   1.984
+					 115.187.159.2   .GPS.            1 u   23   64    3   53.858    1.764  25.240
+					 ec2-13-55-50-68 54.206.109.187   3 u   24   64    3    0.418    2.610   2.034
+					[root@ip-172-31-8-78 .ssh]# date
+					Tue May  2 09:09:40 EDT 2017
 
 
 	
