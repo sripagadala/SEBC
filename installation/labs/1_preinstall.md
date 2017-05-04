@@ -124,11 +124,33 @@ For DNS, use nslookup
 			
 					[ec2-user@ip-172-31-9-175 ~]$ host -t  a ip-172-31-9-175.ap-southeast-2.compute.internal
 					ip-172-31-9-175.ap-southeast-2.compute.internal has address 172.31.9.175
-					
+					:
 
 
 	 
-7.Show the nscd service is running  -  not able to check in EC2 instance 
+7.Show the nscd service is running  
+
+Redirecting to /bin/systemctl status  nscd.service
+т nscd.service - Name Service Cache Daemon
+   Loaded: loaded (/usr/lib/systemd/system/nscd.service; disabled; vendor preset: disabled)
+   Active: active (running) since Thu 2017-05-04 16:47:47 AEST; 5s ago
+  Process: 28002 ExecStart=/usr/sbin/nscd $NSCD_OPTIONS (code=exited, status=0/SUCCESS)
+ Main PID: 28003 (nscd)
+   CGroup: /system.slice/nscd.service
+           тт28003 /usr/sbin/nscd
+
+May 04 16:47:47 ip-172-31-7-212.ap-southeast-2.compute.internal nscd[28003]: 28003 monitoring directory `/etc` (2)
+May 04 16:47:47 ip-172-31-7-212.ap-southeast-2.compute.internal nscd[28003]: 28003 monitoring file `/etc/hosts` (4)
+May 04 16:47:47 ip-172-31-7-212.ap-southeast-2.compute.internal nscd[28003]: 28003 monitoring directory `/etc` (2)
+May 04 16:47:47 ip-172-31-7-212.ap-southeast-2.compute.internal nscd[28003]: 28003 monitoring file `/etc/resolv.conf` (5)
+May 04 16:47:47 ip-172-31-7-212.ap-southeast-2.compute.internal nscd[28003]: 28003 monitoring directory `/etc` (2)
+May 04 16:47:47 ip-172-31-7-212.ap-southeast-2.compute.internal nscd[28003]: 28003 monitoring file `/etc/services` (6)
+May 04 16:47:47 ip-172-31-7-212.ap-southeast-2.compute.internal nscd[28003]: 28003 monitoring directory `/etc` (2)
+May 04 16:47:47 ip-172-31-7-212.ap-southeast-2.compute.internal nscd[28003]: 28003 disabled inotify-based monitoring for file `/etc/netgroup': No such file or directory
+May 04 16:47:47 ip-172-31-7-212.ap-southeast-2.compute.internal nscd[28003]: 28003 stat failed for file `/etc/netgroup'; will try again later: No such file or directory
+May 04 16:47:47 ip-172-31-7-212.ap-southeast-2.compute.internal systemd[1]: Started Name Service Cache Daemon.
+
+
 8.Show the ntpd service is running  - Requires configuration in aws??
 					[root@ip-172-31-6-38 init.d]# ntpstat
 					Unable to talk to NTP daemon. Is it running?
@@ -157,6 +179,9 @@ For DNS, use nslookup
 					 ec2-13-55-50-68 54.206.109.187   3 u   24   64    3    0.418    2.610   2.034
 					[root@ip-172-31-8-78 .ssh]# date
 					Tue May  2 09:09:40 EDT 2017
+			To synchronise with sydney timezone ec2 instances:		
+					sudo ln -sf /usr/share/zoneinfo/Australia/Sydney /etc/localtime
+sudo reboot
 
 
 	
